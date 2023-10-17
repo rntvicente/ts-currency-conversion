@@ -1,30 +1,18 @@
-import { Logger } from '../logger/logger';
 import { InvalidFieldError } from '../error/invalid-field.error';
 
 export class CoinVO {
   private _identity: string;
   private _exchange: number;
 
-  constructor(
-    identity: string,
-    exchange: number,
-    private readonly logger: Logger
-  ) {
+  constructor(identity: string, exchange: number) {
     this._identity = identity;
     this._exchange = exchange;
     this.validate();
   }
 
   private validate(): void {
-    if (this._identity.length !== 3) {
-      this.logger.warn(`Identificador de moeda inválido`);
-      throw new InvalidFieldError('identity');
-    }
-
-    if (this._exchange < 0) {
-      this.logger.warn('Câmbio de moeda inválido');
-      throw new InvalidFieldError('exchange');
-    }
+    if (this._identity.length !== 3) throw new InvalidFieldError('identity');
+    if (this._exchange < 0) throw new InvalidFieldError('exchange');
   }
 
   get identity() {
