@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import winston, { format, transports } from 'winston';
 
-import { Logger } from './logger';
+import { Logger } from './logger.interface';
 
 export class WinstonLoggerAdapter implements Logger {
   private readonly logger: winston.Logger;
