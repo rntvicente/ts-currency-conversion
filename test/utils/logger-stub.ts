@@ -1,4 +1,4 @@
-import { Logger } from '../../src/shared/logger/logger';
+import { Logger } from '../../src/shared/logger/logger.interface';
 
 export const makeLoggerSUT = () => {
   class LoggerStub implements Logger {
