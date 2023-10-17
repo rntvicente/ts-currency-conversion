@@ -1,4 +1,4 @@
-import { InvalidFieldError } from "../error/invalid-field.error";
+import { InvalidFieldError } from '../error/invalid-field.error';
 
 export class CoinVO {
   private _identity: string;
@@ -11,8 +11,8 @@ export class CoinVO {
   }
 
   private validate(): void {
-    if (this._identity.length !== 3) throw new InvalidFieldError("identity");
-    if (this._exchange < 0) throw new InvalidFieldError("exchange");
+    if (this._identity.length !== 3) throw new InvalidFieldError('identity');
+    if (this._exchange < 0) throw new InvalidFieldError('exchange');
   }
 
   get identity() {
