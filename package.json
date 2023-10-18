@@ -10,9 +10,11 @@
   "scripts": {
     "build": "npx tsc --build",
     "clean": "npx tsc --build --clean",
+    "start": "----------------------------e ./src/main.ts",
     "lint": "eslint ./src/**/*.ts && eslint ./test/**/*.ts",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:unit": "npm test -- --watchAll -c jest-unit.config.ts",
+    "test:integration": "npm test -- --watchAll -c jest-integration.config.ts",
     "test:cov": "./node_modules/.bin/jest --runInBand --coverage --verbose"
   },
   "keywords": [
@@ -32,6 +34,7 @@
     "@types/eslint": "^8.44.4",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.8.6",
+    "axios-mock-adapter": "^1.22.0",
     "chance": "^1.1.11",
     "eslint": "^8.51.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -46,7 +49,8 @@
   },
   "dependencies": {
     "axios": "^1.5.1",
-    "chalk": "^5.3.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1",
     "winston": "^3.11.0"
   }
 }

@@ -1,3 +1,3 @@
-export interface CalculatePriceService {
+export interface CalculatePrice {
   execute(value: number, exchange: number): number;
 }

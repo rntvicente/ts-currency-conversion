@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { HttpClient } from './http-client.interface';
+import { HttpClient } from './http-client';
 
-export class AxiosAdapter implements HttpClient {
+export class AxiosInstance implements HttpClient {
   constructor() {
     axios.defaults.validateStatus = function () {
       return true;

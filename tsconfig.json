@@ -15,16 +15,15 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest"],
+    "types": ["jest", "node"],
     "noEmit": false
   },
   "include": [
     "src/**/*.ts",
     ".eslintrc",
     "jest.config.ts",
-    "jest-unit-config.ts",
-    // "jest-mongodb-config.ts",
-    // "jest-integration-config.ts"
+    "jest-unit.config.ts",
+    "jest-integration.config.ts"
   ],
   "exclude": ["node_modules", "test", "jest*.ts"]
 }

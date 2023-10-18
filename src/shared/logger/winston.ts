@@ -1,16 +1,16 @@
-import chalk from 'chalk';
 import winston, { format, transports } from 'winston';
+import chalk from 'chalk';
 
-import { Logger } from './logger.interface';
+import { Logger } from './logger';
 
-export class WinstonLoggerAdapter implements Logger {
+export class WinstonLogger implements Logger {
   private readonly logger: winston.Logger;
 
   constructor(private readonly method: string) {
     const isTestEnv = process.env.NODE_ENV === 'test';
 
     this.logger = winston.createLogger({
-      level: isTestEnv ? 'silent' : 'info',
+      level: isTestEnv ? 'error' : 'info',
       defaultMeta: method,
       format: format.combine(
         format.simple(),
