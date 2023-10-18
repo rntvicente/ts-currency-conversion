@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { USDBRLCurrencyConversionStrategy } from '../../../../src/application/strategy/usd-brl-currency-conversion-strategy';
+import { CurrencyConversionService } from '../../../../src/application/services/currency-conversion-service';
 import { CalculatePriceService } from '../../../../src/application/services/calculate-price-service';
 import { WinstonLogger } from '../../../../src/shared/logger/winston';
 import { AxiosInstance } from '../../../../src/config/http/axios';
@@ -13,10 +13,10 @@ const makeSUT = () => {
   const service = new CalculatePriceService(logger);
   const httpClient = new AxiosInstance();
 
-  return new USDBRLCurrencyConversionStrategy(service, httpClient, logger);
+  return new CurrencyConversionService(service, httpClient, logger);
 };
 
-describe('# Test Integration USD-BRL Currency Convesion Strategy', () => {
+describe('# Test Integration Currency Convesion Service', () => {
   let mock: MockAdapter;
   const url_api = `${process.env.AWESOME_API}/last/USD-BRL`;
 
@@ -33,7 +33,7 @@ describe('# Test Integration USD-BRL Currency Convesion Strategy', () => {
 
     const sut = makeSUT();
 
-    await expect(() => sut.convert(10)).rejects.toThrow(
+    await expect(() => sut.convert(10, 'USD', 'BRL')).rejects.toThrow(
       'Unprocessable Entity: Network Error.'
     );
   });
@@ -54,7 +54,7 @@ describe('# Test Integration USD-BRL Currency Convesion Strategy', () => {
     });
 
     const sut = makeSUT();
-    const coin = await sut.convert(10);
+    const coin = await sut.convert(10, 'USD', 'BRL');
 
     expect(coin).toStrictEqual(1.99);
   });
