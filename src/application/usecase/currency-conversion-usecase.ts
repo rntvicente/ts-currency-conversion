@@ -11,13 +11,15 @@ export class CurrencyConversionUsecase implements Usecase {
     private readonly logger: Logger
   ) {}
 
-  async execute(price: number): Promise<Record<string, number>> {
-    this.logger.info(`[USE CASE] starting currency conversion price ${price}.`);
+  async execute({ price, coin }: Input): Promise<Record<string, number>> {
+    this.logger.info(
+      `[USE CASE] starting currency conversion ${coin} price ${price}.`
+    );
 
     const [usdbrl, eurbrl, inrbrl] = await Promise.all([
-      this.currencyConversionService.convert(price, 'USD', 'BRL'),
-      this.currencyConversionService.convert(price, 'EUR', 'BRL'),
-      this.currencyConversionService.convert(price, 'INR', 'BRL'),
+      this.currencyConversionService.convert(price, 'USD', coin),
+      this.currencyConversionService.convert(price, 'EUR', coin),
+      this.currencyConversionService.convert(price, 'INR', coin),
     ]);
 
     const coins = [
@@ -28,10 +30,15 @@ export class CurrencyConversionUsecase implements Usecase {
 
     const conversionCurrency: Record<string, number> = {};
 
-    for (const coin of coins) {
-      conversionCurrency[coin.id] = coin.value;
+    for (const item of coins) {
+      conversionCurrency[item.id] = item.value;
     }
 
     return conversionCurrency;
   }
 }
+
+export type Input = {
+  coin: string;
+  price: number;
+};

@@ -19,29 +19,34 @@ export class CurrencyConversionService implements CurrencyConversion {
     sourceCurrency: string,
     targetCurrency: string
   ): Promise<number> {
-    try {
-      this.logger.info(
-        `[SERVICE] calling API to currency conversion ${sourceCurrency}-${targetCurrency}`
+    this.logger.info(
+      `[SERVICE] calling API to currency conversion ${sourceCurrency}-${targetCurrency}`
+    );
+
+    const { data: coin, status } =
+      await this.httpClient.get<CurrencyExchangeRateModel>(
+        `${process.env.AWESOME_API}/last/${sourceCurrency}-${targetCurrency}`
       );
 
-      const { data: coin } =
-        await this.httpClient.get<CurrencyExchangeRateModel>(
-          `${process.env.AWESOME_API}/last/${sourceCurrency}-${targetCurrency}`
-        );
+    if (status !== 200) {
+      this.logger.warn(`[SERVICE] fail called API ${JSON.stringify(coin)}`);
 
-      this.logger.info(
-        `[SERVICE] found coin ${sourceCurrency}-${targetCurrency} ${JSON.stringify(
-          coin
-        )}`
+      throw new UnprocessableEntityError(
+        `currency conversion ${sourceCurrency}-${targetCurrency}`
       );
-
-      return this.calculatePriceService.execute(value, parseFloat(coin.bid));
-    } catch (error) {
-      this.logger.error(
-        `[SERVICE] fail called API to currency conversion ${sourceCurrency}-${targetCurrency} - ${error.message}`
-      );
-
-      throw new UnprocessableEntityError(error.message);
     }
+
+    this.logger.info(
+      `[SERVICE] found coin ${sourceCurrency}-${targetCurrency} ${JSON.stringify(
+        coin
+      )}`
+    );
+
+    const currency = sourceCurrency + targetCurrency;
+
+    return this.calculatePriceService.execute(
+      value,
+      parseFloat(coin[currency].bid)
+    );
   }
 }
