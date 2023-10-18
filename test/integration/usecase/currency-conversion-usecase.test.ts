@@ -33,25 +33,37 @@ describe('# Test Integration Currency Conversion Usecase', () => {
     mock.reset();
   });
 
-  it('deve lançar exceção quando chamada a API USD-BRL e falhar', async () => {
+  it('deve lançar exceção quando API falhar', async () => {
     mock.onGet(`${url_api}/last/USD-BRL`).networkError();
-    mock.onGet(`${url_api}/last/EUR-BRL`).reply(200, { bid: '5.0174' });
-    mock.onGet(`${url_api}/last/INR-BRL`).reply(200, { bid: '5.0175' });
+
+    mock
+      .onGet(`${url_api}/last/EUR-BRL`)
+      .reply(200, { EURBRL: { bid: '5.0174' } });
+
+    mock
+      .onGet(`${url_api}/last/INR-BRL`)
+      .reply(200, { INRBRL: { bid: '5.0175' } });
 
     const sut = makeSUT();
 
-    await expect(() => sut.execute(10)).rejects.toThrow(
-      'Unprocessable Entity: Network Error.'
+    await expect(() => sut.execute({ price: 10, coin: 'BRL' })).rejects.toThrow(
+      'Network Error'
     );
   });
 
   it('deve retornar conversão de BRL 10.00 para USD, EUR e INR quando executado corretamente', async () => {
-    mock.onGet(`${url_api}/last/USD-BRL`).reply(200, { bid: '5.0397' });
-    mock.onGet(`${url_api}/last/EUR-BRL`).reply(200, { bid: '5.3188' });
-    mock.onGet(`${url_api}/last/INR-BRL`).reply(200, { bid: '0.06053' });
+    mock
+      .onGet(`${url_api}/last/USD-BRL`)
+      .reply(200, { USDBRL: { bid: '5.0397' } });
+    mock
+      .onGet(`${url_api}/last/EUR-BRL`)
+      .reply(200, { EURBRL: { bid: '5.3188' } });
+    mock
+      .onGet(`${url_api}/last/INR-BRL`)
+      .reply(200, { INRBRL: { bid: '0.06053' } });
 
     const sut = makeSUT();
-    const coins = await sut.execute(10);
+    const coins = await sut.execute({ price: 10, coin: 'BRL' });
 
     expect(coins).toEqual({ USD: 1.98, EUR: 1.88, INR: 165.21 });
   });

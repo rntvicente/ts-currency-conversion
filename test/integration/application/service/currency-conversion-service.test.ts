@@ -6,8 +6,6 @@ import { CalculatePriceService } from '../../../../src/application/services/calc
 import { WinstonLogger } from '../../../../src/shared/logger/winston';
 import { AxiosInstance } from '../../../../src/config/http/axios';
 
-import { CurrencyExchangeRateModel } from '../../../../src/application/repository/currency-exchange-rate-model';
-
 const makeSUT = () => {
   const logger = new WinstonLogger('TEST');
   const service = new CalculatePriceService(logger);
@@ -16,7 +14,7 @@ const makeSUT = () => {
   return new CurrencyConversionService(service, httpClient, logger);
 };
 
-describe('# Test Integration Currency Convesion Service', () => {
+describe('# Test Integration Currency Conversion Service', () => {
   let mock: MockAdapter;
   const url_api = `${process.env.AWESOME_API}/last/USD-BRL`;
 
@@ -34,23 +32,39 @@ describe('# Test Integration Currency Convesion Service', () => {
     const sut = makeSUT();
 
     await expect(() => sut.convert(10, 'USD', 'BRL')).rejects.toThrow(
-      'Unprocessable Entity: Network Error.'
+      'Network Error'
+    );
+  });
+
+  it('deve lançar exceção quando API retornar statusCode diferente de 200', async () => {
+    mock.onGet(url_api).reply(404, {
+      status: 404,
+      code: 'CoinNotExists',
+      message: 'moeda nao encontrada INR-BRO',
+    });
+
+    const sut = makeSUT();
+
+    await expect(() => sut.convert(10, 'USD', 'BRL')).rejects.toThrow(
+      'Unprocessable Entity: currency conversion USD-BRL.'
     );
   });
 
   it('deve converter BRL 10 para USD 1.99 corretamente quando encontrado moeda USD-BRL', async () => {
     mock.onGet(url_api).reply(200, {
-      code: 'USD',
-      codein: 'BRL',
-      name: 'Dólar Americano/Real Brasileiro',
-      high: '5.0651',
-      low: '5.01',
-      varBid: '-0.0188',
-      pctChange: '-0.37',
-      bid: '5.0174',
-      ask: '5.0204',
-      timestamp: '1697562039',
-      create_date: '2023-10-17 14:00:39',
+      USDBRL: {
+        code: 'USD',
+        codein: 'BRL',
+        name: 'Dólar Americano/Real Brasileiro',
+        high: '5.0651',
+        low: '5.01',
+        varBid: '-0.0188',
+        pctChange: '-0.37',
+        bid: '5.0174',
+        ask: '5.0204',
+        timestamp: '1697562039',
+        create_date: '2023-10-17 14:00:39',
+      },
     });
 
     const sut = makeSUT();
