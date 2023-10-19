@@ -3,11 +3,11 @@
 TAG=$(node -p -e "require('./package.json').version")
 GIT_TAG=$(git tag -l $TAG);
 
-IMAGE=$( if [ $DOCKER_IMAGE ]; then echo $DOCKER_IMAGE; else echo "rntvicente/$CIRCLE_PROJECT_REPONAME"; fi;);
+IMAGE=$( if [ $DOCKER_IMAGE ]; then echo $DOCKER_IMAGE; else echo "rntvicente/$GITHUB_REPOSITORY"; fi;);
 
 if [ "$TAG" == "$GIT_TAG" ]; then
   echo "The version $TAG already exists!"
-elif [[ ("$CIRCLE_BRANCH" == "master" && "$TAG" != *"rc"*) || ("$CIRCLE_BRANCH" != "master" && $TAG == *"rc"*) ]]; then
+elif [[ ("$BRANCH_NAME" == "master" && "$TAG" != *"rc"*) || ("$BRANCH_NAME" != "master" && $TAG == *"rc"*) ]]; then
   git tag $TAG
   docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
