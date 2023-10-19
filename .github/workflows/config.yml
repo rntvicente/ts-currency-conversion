@@ -45,6 +45,6 @@ jobs:
 
       - name: Deploy to Docker
         run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u $DOCKER_USER --password-stdin
+          cat ${{ secrets.DOCKER_PASSWORD }} | docker login -u $DOCKER_USER --password-stdin
           docker pull rntvicente/circleci-build-node:18.13.0
           docker run -d --name currency-conversion-api rntvicente/circleci-build-node:18.13.0
