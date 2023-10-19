@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npx tsc --build",
     "clean": "npx tsc --build --clean",
-    "start": "npx ts-node ./src/main.ts",
+    "start": "npx ts-node --require ./src/infra/server/intrumention.ts ./src/main.ts",
     "start:dev": "./node_modules/nodemon/bin/nodemon.js",
     "lint": "eslint ./src/**/*.ts && eslint ./test/**/*.ts",
     "test": "TZ=UTC jest --passWithNoTests --runInBand --no-cache",
@@ -54,6 +54,10 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.6.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.39.4",
+    "@opentelemetry/sdk-metrics": "^1.17.1",
+    "@opentelemetry/sdk-node": "^0.44.0",
     "axios": "^1.5.1",
     "chalk": "^4.1.2",
     "dotenv": "^16.3.1",
