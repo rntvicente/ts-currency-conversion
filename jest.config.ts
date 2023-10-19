@@ -5,7 +5,12 @@ export default {
   testEnvironment: 'node',
   collectCoverageFrom: ['<rootDir>/src/**', '!<rootDir>/src/main.ts'],
   coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: ['/node_modules/', 'test/utils', 'shared/logger'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    'test/utils',
+    'config/logger',
+    'config/server',
+  ],
   coverageReporters: ['json', 'text', 'lcov', 'clover'],
   roots: ['<rootDir>/test', '<rootDir>/src'],
   transform: { '.+\\.ts$': '@swc/jest' },

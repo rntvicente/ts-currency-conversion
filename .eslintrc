@@ -9,11 +9,10 @@
   },
   "plugins": ["@typescript-eslint", "import", "prettier", "jest"],
   "extends": [
-    "eslint:recommended",
-    "airbnb-typescript/base",
     "prettier",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript"
+    "eslint:recommended",
+    "airbnb-base",
+    "airbnb-typescript/base",
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
@@ -30,6 +29,7 @@
         "endOfLine": "lf"
       }
     ],
+    "import/prefer-default-export": "off",
     "@typescript-eslint/lines-between-class-members": [
       "error",
       "always",
