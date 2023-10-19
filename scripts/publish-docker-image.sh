@@ -3,7 +3,7 @@
 TAG=$(node -p -e "require('./package.json').version")
 GIT_TAG=$(git tag -l $TAG);
 
-IMAGE=$( if [ $DOCKER_IMAGE ]; then echo $DOCKER_IMAGE; else echo "hugoiuri/$CIRCLE_PROJECT_REPONAME"; fi;);
+IMAGE=$( if [ $DOCKER_IMAGE ]; then echo $DOCKER_IMAGE; else echo "rntvicente/$CIRCLE_PROJECT_REPONAME"; fi;);
 
 if [ "$TAG" == "$GIT_TAG" ]; then
   echo "The version $TAG already exists!"
