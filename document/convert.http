@@ -1,2 +1,2 @@
-GET http://localhost:3000/convert/BRL/10 HTTP/1.1
+GET http://localhost:3000/convert/BRL/3500 HTTP/1.1
 content-type: application/json

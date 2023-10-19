@@ -3,15 +3,20 @@ import MockAdapter from 'axios-mock-adapter';
 
 import { CurrencyConversionService } from '../../../../src/application/services/currency-conversion-service';
 import { CalculatePriceService } from '../../../../src/application/services/calculate-price-service';
+
 import { WinstonLogger } from '../../../../src/shared/logger/winston';
 import { AxiosInstance } from '../../../../src/config/http/axios';
 
 const makeSUT = () => {
   const logger = new WinstonLogger('TEST');
-  const service = new CalculatePriceService(logger);
+  const calculatePriceService = new CalculatePriceService(logger);
   const httpClient = new AxiosInstance();
 
-  return new CurrencyConversionService(service, httpClient, logger);
+  return new CurrencyConversionService(
+    calculatePriceService,
+    httpClient,
+    logger
+  );
 };
 
 describe('# Test Integration Currency Conversion Service', () => {
@@ -24,6 +29,7 @@ describe('# Test Integration Currency Conversion Service', () => {
 
   afterEach(() => {
     mock.reset();
+    jest.useRealTimers();
   });
 
   it('deve lançar exceção quando API falhar', async () => {
@@ -40,13 +46,13 @@ describe('# Test Integration Currency Conversion Service', () => {
     mock.onGet(url_api).reply(404, {
       status: 404,
       code: 'CoinNotExists',
-      message: 'moeda nao encontrada INR-BRO',
+      message: 'moeda nao encontrada USD-BRO',
     });
 
     const sut = makeSUT();
 
     await expect(() => sut.convert(10, 'USD', 'BRL')).rejects.toThrow(
-      'Unprocessable Entity: currency conversion USD-BRL.'
+      'Unprocessable Entity: currency conversion USDBRL.'
     );
   });
 

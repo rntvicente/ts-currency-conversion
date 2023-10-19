@@ -2,11 +2,13 @@ import { Logger } from '../../shared/logger/logger';
 
 import { CoinEntity } from '../../domain/coin-entity';
 import { CurrencyConversion } from '../services/currency-conversion';
+import { CalculateDiscountHandler } from '../../application/services/calculate-discount-handler';
 
 import { Usecase } from './usecase';
 
 export class CurrencyConversionUsecase implements Usecase {
   constructor(
+    private readonly calculateDiscountHandle: CalculateDiscountHandler,
     private readonly currencyConversionService: CurrencyConversion,
     private readonly logger: Logger
   ) {}
@@ -16,16 +18,18 @@ export class CurrencyConversionUsecase implements Usecase {
       `[USE CASE] starting currency conversion ${coin} price ${price}.`
     );
 
+    const priceDiscount = this.calculateDiscountHandle.calculate(price);
+
     const [usdbrl, eurbrl, inrbrl] = await Promise.all([
-      this.currencyConversionService.convert(price, 'USD', coin),
-      this.currencyConversionService.convert(price, 'EUR', coin),
-      this.currencyConversionService.convert(price, 'INR', coin),
+      this.currencyConversionService.convert(priceDiscount, 'USD', coin),
+      this.currencyConversionService.convert(priceDiscount, 'EUR', coin),
+      this.currencyConversionService.convert(priceDiscount, 'INR', coin),
     ]);
 
     const coins = [
-      await CoinEntity.create('USD', usdbrl, 15),
-      await CoinEntity.create('EUR', eurbrl, 15),
-      await CoinEntity.create('INR', inrbrl, 15),
+      await CoinEntity.create('USD', usdbrl),
+      await CoinEntity.create('EUR', eurbrl),
+      await CoinEntity.create('INR', inrbrl),
     ];
 
     const conversionCurrency: Record<string, number> = {};

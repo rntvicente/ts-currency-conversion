@@ -19,8 +19,10 @@ export class CurrencyConversionService implements CurrencyConversion {
     sourceCurrency: string,
     targetCurrency: string
   ): Promise<number> {
+    const currency = sourceCurrency + targetCurrency;
+
     this.logger.info(
-      `[SERVICE] calling API to currency conversion ${sourceCurrency}-${targetCurrency}`
+      `[SERVICE] calling API to currency conversion ${currency}`
     );
 
     const { data: coin, status } =
@@ -31,18 +33,12 @@ export class CurrencyConversionService implements CurrencyConversion {
     if (status !== 200) {
       this.logger.warn(`[SERVICE] fail called API ${JSON.stringify(coin)}`);
 
-      throw new UnprocessableEntityError(
-        `currency conversion ${sourceCurrency}-${targetCurrency}`
-      );
+      throw new UnprocessableEntityError(`currency conversion ${currency}`);
     }
 
     this.logger.info(
-      `[SERVICE] found coin ${sourceCurrency}-${targetCurrency} ${JSON.stringify(
-        coin
-      )}`
+      `[SERVICE] found coin ${currency} ${JSON.stringify(coin)}`
     );
-
-    const currency = sourceCurrency + targetCurrency;
 
     return this.calculatePriceService.execute(
       value,
