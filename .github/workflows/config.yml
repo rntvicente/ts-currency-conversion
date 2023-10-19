@@ -9,7 +9,7 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   GITHUB_REPOSITORY: ${{ github.repository }}
-  BRANCH_NAME: ${{ github.ref }}
+  BRANCH_NAME: ${{ github }}
 
 jobs:
   build:
