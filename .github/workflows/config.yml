@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+env:
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,3 +36,16 @@ jobs:
         with:
           name: coverage
           path: coverage
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Docker
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker pull rntvicente/circleci-build-node:18.13.0
+          docker run -d --name currency-conversion-api rntvicente/circleci-build-node:18.13.0
