@@ -28,7 +28,7 @@ jobs:
         run: npm run test:cov
 
       - name: Build and Publish Docker Image
-        run: bash ./scripts/publish-docker-image.sh
+        run: bash ../scripts/publish-docker-image.sh
 
       - name: Upload Test Coverage
         uses: actions/upload-artifact@v2
@@ -45,6 +45,6 @@ jobs:
 
       - name: Deploy to Docker
         run: |
-          cat ${{ secrets.DOCKER_PASSWORD }} | docker login -u $DOCKER_USER --password-stdin
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u $DOCKER_USER --password-stdin
           docker pull rntvicente/circleci-build-node:18.13.0
           docker run -d --name currency-conversion-api rntvicente/circleci-build-node:18.13.0
