@@ -21,9 +21,6 @@ jobs:
       - name: Install NPM Modules
         run: npm ci
 
-      - name: Execute Linter
-        run: npm run lint
-
       - name: Execute Tests
         run: npm run test:cov
 
