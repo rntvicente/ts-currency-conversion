@@ -1,11 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { CurrencyConversionService } from '../../../../src/application/services/currency-conversion-service';
-import { CalculatePriceService } from '../../../../src/application/services/calculate-price-service';
+import { CurrencyConversionService } from '../../src/application/services/currency-conversion-service';
+import { CalculatePriceService } from '../../src/application/services/calculate-price-service';
 
-import { WinstonLogger } from '../../../../src/shared/logger/winston';
-import { AxiosInstance } from '../../../../src/config/http/axios';
+import { WinstonLogger } from '../../src/shared/logger/winston';
+import { AxiosInstance } from '../../src/config/http/axios';
 
 const makeSUT = () => {
   const logger = new WinstonLogger('TEST');

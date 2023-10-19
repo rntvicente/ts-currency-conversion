@@ -2,11 +2,11 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import request from 'supertest';
 
-import { ExpressAdapter } from '../../../src/infra/server/express';
-import { WinstonLogger } from '../../../src/shared/logger/winston';
+import { ExpressAdapter } from '../../src/infra/server/express';
+import { WinstonLogger } from '../../src/shared/logger/winston';
 
-import { makeCreateController } from '../../../src/application/factory';
-import { CurrencyConversionRoute } from '../../../src/application/route';
+import { makeCreateController } from '../../src/application/factory';
+import { CurrencyConversionRoute } from '../../src/application/route';
 
 describe('# Test Integration Route GET:/convert/:coin/:price', () => {
   let mock: MockAdapter;

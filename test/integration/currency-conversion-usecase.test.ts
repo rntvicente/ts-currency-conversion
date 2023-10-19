@@ -1,18 +1,18 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { CurrencyConversionUsecase } from '../../../src/application/usecase/currency-conversion-usecase';
-import { CurrencyConversionService } from '../../../src/application/services/currency-conversion-service';
-import { CalculatePriceService } from '../../../src/application/services/calculate-price-service';
-import { NormalDiscountHandler } from '../../../src/application/services/normal-discount-handler';
-import { SaturdayDiscountHandler } from '../../../src/application/services/saturday-discount-handler';
-import { Saturday2000DiscountHandler } from '../../../src/application/services/saturday-2000-discount-handler';
-import { SundayDiscountHandler } from '../../../src/application/services/sunday-discount-handler';
-import { Sunday2000DiscountHandler } from '../../../src/application/services/sunday-2000-discount-handler';
-import { WeekdayDiscountHandler } from '../../../src/application/services/weekday-discount-handler';
+import { CurrencyConversionUsecase } from '../../src/application/usecase/currency-conversion-usecase';
+import { CurrencyConversionService } from '../../src/application/services/currency-conversion-service';
+import { CalculatePriceService } from '../../src/application/services/calculate-price-service';
+import { NormalDiscountHandler } from '../../src/application/services/normal-discount-handler';
+import { SaturdayDiscountHandler } from '../../src/application/services/saturday-discount-handler';
+import { Saturday2000DiscountHandler } from '../../src/application/services/saturday-2000-discount-handler';
+import { SundayDiscountHandler } from '../../src/application/services/sunday-discount-handler';
+import { Sunday2000DiscountHandler } from '../../src/application/services/sunday-2000-discount-handler';
+import { WeekdayDiscountHandler } from '../../src/application/services/weekday-discount-handler';
 
-import { WinstonLogger } from '../../../src/shared/logger/winston';
-import { AxiosInstance } from '../../../src/config/http/axios';
+import { WinstonLogger } from '../../src/shared/logger/winston';
+import { AxiosInstance } from '../../src/config/http/axios';
 
 const makeSUT = () => {
   const logger = new WinstonLogger('TEST');

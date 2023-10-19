@@ -20,6 +20,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "test/**/*.ts",
     ".eslintrc",
     "jest.config.ts",
     "jest-unit-config.ts",
