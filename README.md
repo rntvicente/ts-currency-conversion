@@ -175,3 +175,13 @@ Basta cópiar o arquivo `.env.example` e renomear para `.env`.
 ```
 docker-compose up
 ```
+
+---
+
+## Meu contatos para bater um papo
+
+**Renato Vicente**
+email: rntvicnete@gmail.com
+twiiter: @rntvicente
+instagram: @renatovicente_dev
+linkedIn: https://www.linkedin.com/in/vicenterenato/
