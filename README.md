@@ -9,10 +9,10 @@ Precisamos de uma solução tecnológica em que os clients (frontend, app, outra
 ## Meu contatos para bater um papo
 
 **Renato Vicente**
-email: rntvicnete@gmail.com
-twiiter: @rntvicente
-instagram: @renatovicente_dev
-linkedIn: https://www.linkedin.com/in/vicenterenato/
+- [] email: rntvicnete@gmail.com
+- [] twiiter: @rntvicente
+- [] instagram: @renatovicente_dev
+- [] linkedIn: https://www.linkedin.com/in/vicenterenato/
 
 ---
 
