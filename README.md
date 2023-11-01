@@ -6,15 +6,6 @@ Com este cenário em mente, encontramos um desafio, que é expor o valor das mer
 
 Precisamos de uma solução tecnológica em que os clients (frontend, app, outras aplicações backend. . . dentre outros) possam consultar o valor em outras moedas.
 
-## Meu contatos para bater um papo
-
-**Renato Vicente**
-- email: rntvicnete@gmail.com
-- twiiter: @rntvicente
-- instagram: @renatovicente_dev
-- linkedIn: https://www.linkedin.com/in/vicenterenato/
-
-
 ## RFC #1
 
 Tema: Decisão de linguagem
